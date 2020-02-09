@@ -19,13 +19,12 @@ export default {
   },
   data() {
     return {
-      session: ''
+      session: '123'
     }
   },
   methods: {
     getSession() {
       var request = require('request') 
-
       console.log('getting session')
       const landingPageOptions = {
         'method': 'GET',
@@ -37,11 +36,30 @@ export default {
         }
       }
 
-    request(landingPageOptions, function(err, res, body) {
-        console.log(body);
-    });
-    }
+      // const urlGoogle = 'https://www.google.de'
 
+      // const options = {
+      //   'method': 'GET',
+      //   'url': 'https://cors-proxifier.herokuapp.com/',
+      //   'headers': {
+      //     'Target-Url': urlGoogle
+      //   }
+      // }
+
+      var _this = this
+
+      request('https://cors-anywhere.herokuapp.com/' + landingPageOptions.url, function(err, res, body) {
+      // request('https://cors-anywhere.herokuapp.com/' + urlGoogle, function(err, res, body) {
+        // retrieves session from html
+        function getSession (html) {
+          let start = html.indexOf('jsessionid=') + 'jsessionid='.length
+          let end = html.indexOf('?', start)
+          return html.substr(start, end - start)
+        }
+        _this.session = getSession(body)
+        console.log('session', _this.session)
+      })
+    }
   }
 }
 </script>
