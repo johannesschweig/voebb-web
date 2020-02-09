@@ -21,7 +21,6 @@ export default {
 .root {
     display: grid;
     grid-template-rows: 108px 1fr;
-    overflow-x: hidden;
     width: calc(100vw - 84px - 32px);
 }
 

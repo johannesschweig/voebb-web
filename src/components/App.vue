@@ -78,7 +78,6 @@ h1 {
     font-family: Lato, sans-serif;
     height: 100vh;
     width: 100vw;
-    overflow-x: hidden;
     position: fixed;
 }
 

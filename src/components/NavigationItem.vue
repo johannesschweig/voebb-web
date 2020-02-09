@@ -30,8 +30,6 @@ export default {
 
 <style scoped>
 svg {
-    width: 32px;
-    padding: 14px;
     cursor: pointer;
 }
 
@@ -42,6 +40,20 @@ svg * {
 svg:hover *,
 a.router-link-active svg *{
     stroke: var(--color-4);
+}
+
+@media only screen and (max-width: 600px) {
+    svg {
+        scale: .75;
+        padding: 4px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    svg {
+        width: 32px;
+        padding: 14px;
+    }
 }
 
 </style>
