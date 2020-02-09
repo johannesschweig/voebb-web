@@ -1,7 +1,8 @@
+const proxy = 'https://cors-anywhere.herokuapp.com/'
 // request options for landing page
 export const landingPageOptions = {
   'method': 'GET',
-  'url': 'https://voebb.de/aDISWeb/app?service=direct/0/Home/$DirectLink&sp=SPROD00',
+  'url': proxy + 'https://voebb.de/aDISWeb/app?service=direct/0/Home/$DirectLink&sp=SPROD00',
   'headers': {
     'Upgrade-Insecure-Requests': '1',
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
@@ -13,7 +14,7 @@ export const landingPageOptions = {
 export function resultsPageOptions (session, searchTerm) {
   return {
     'method': 'POST',
-    'url': 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
+    'url': proxy + 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
     'headers': {
       'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0',
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -51,7 +52,7 @@ export function resultsPageOptions (session, searchTerm) {
 export function nextPageOptions (session, page) {
   return {
     'method': 'POST',
-    'url': 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
+    'url': proxy + 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
     'headers': {
       'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0',
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -97,7 +98,7 @@ export function nextPageOptions (session, page) {
 export function singleResultPageOptions (identifier) {
   return {
     'method': 'GET',
-    'url': 'https://voebb.de/aDISWeb/app?service=direct/0/Home/$DirectLink&sp=SPROD00&sp=S' + identifier,
+    'url': proxy + 'https://voebb.de/aDISWeb/app?service=direct/0/Home/$DirectLink&sp=SPROD00&sp=S' + identifier,
     'headers': {
       'Connection': 'keep-alive',
       'Cache-Control': 'max-age=0',
@@ -119,7 +120,7 @@ export function singleResultPageOptions (identifier) {
 export function resultPageOptions (session) {
   return {
     'method': 'POST',
-    'url': 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
+    'url': proxy + 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
     'headers': {
       'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0',
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
