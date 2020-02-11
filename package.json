@@ -13,7 +13,10 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "core-js": "^3.6.4",
+    "dns": "^0.2.2",
     "express": "^4.17.1",
+    "pg": "^7.18.1",
+    "pg-native": "^3.0.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
     "vuex": "^3.1.2"
