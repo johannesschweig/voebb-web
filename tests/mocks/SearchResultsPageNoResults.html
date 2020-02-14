@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.min.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Die neue Website des V&#214;BB </title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
+<meta name="description" content="OPAC der &ouml;ffentlichen Bibliotheken in Berlin (V&Ouml;BB)">
+<!--
+(c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| angewandte Systemtechnik - www.astec.de
+HTML/CSS: Formulare, Tabellen, Inhalte, etc. werden automatisiert durch aDIS/BMS generiert
+Anpassungen im aDIS-Rahmen: Nina Gerling
+Projekt: aDIS-85 V&Ouml;BB, OPAC01 de
+Letztes Update: 20.11.2019 13.08 Uhr 
+//-->
+<script src="/aDISWeb_kopac85/js/scripts-head.js"></script>
+<link rel="stylesheet" href="/aDISWeb_kopac85/css/kopac_style.css">
+<link rel="stylesheet" href="/aDISWeb_vob/css/style_wartung.css">
+<!--
+<link jwcid="@aDIS:Style" objectId="5458271C"/>
+<link jwcid="@aDIS:Style" objectId="5458271D"/>
+//-->
+<!--[if lte IE 8]><link rel="stylesheet" href="/aDISWeb_kopac85/css/kopac_ie-old.css"><![endif]-->
+<!--[if lt IE 9]><script src="/aDISWeb_kopac85/js/html5shiv-printshiv.min.js"></script><script src="/aDISWeb_kopac85/js/css3-mediaqueries.js"></script><![endif]-->
+<link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_vob/images/favicon.ico">
+</head>
+
+<body class="opac01">
+<script type="text/javascript"><!--
+
+
+
+
+
+
+aDIS.sendBackRequest = function(e) {
+  if(e.state != null && e.state.action)
+    location.href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$BrowserBack";
+}
+
+
+
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+}			
+function to(link) {
+  location.href=link;
+}
+
+
+
+
+
+function setupaDISHandlers()  {
+  aDIS.addListener("mousedown",document, aDIS.docOnEvent);
+  aDIS.addListener("keydown",document, aDIS.docOnEvent);
+  aDIS.addListener("help",document, aDIS.docOnEvent); 
+
+  aDIS.initFormElements();
+  aDIS.initIframes();
+  aDIS.initScrollPos();
+}
+
+
+
+
+
+
+aDISAjax.URL = "/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=aDISAjax/POOLVX00p-varuba_4B033700_00000000/$AjaxScript";
+
+
+
+
+
+  var UserAgent = navigator.userAgent.toLowerCase();
+  var mobileBrowser = false;
+  if (UserAgent.search(/(iphone|ipod|ipad|opera mini|fennec|palm|blackberry|android|symbian|series60)/) != -1)
+    mobileBrowser = true;
+  
+  aDIS.isFirstFocusAllowed = function(el){
+    if(el && !mobileBrowser){
+
+      var yPos = el.getBoundingClientRect().top;
+      var pageScroll = document.forms[0].scrollPos.value;
+      
+      if(pageScroll == 0 || yPos > 0)
+       return true;
+    }
+
+    return false;
+
+}
+
+
+function submitLink(form, elementId) { form._linkSubmit.value = elementId; if (form.onsubmit == null || form.onsubmit()) form.submit(); }
+
+
+
+
+
+
+
+aDIS.onLoad = function (e)
+{
+
+
+
+if (history.pushState && history.state == null) {
+  history.pushState({ action : 1 }, "", null);
+  history.pushState({ action : 2 }, "", null);
+}       
+
+window.onpopstate = function (e){  
+  aDIS.sendBackRequest(e);
+}
+
+
+
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$Timeout";
+  startIdleTimer();
+
+
+  if (!e) var e = window.event;
+  document.forms[0].scriptEnabled.value=true;
+  if (self.specialOnLoad != undefined)
+    specialOnLoad(e);
+  setupaDISHandlers();
+  aDIS.getDimensions();
+
+
+  aDIS.Suggest["Autosuggest"] = new Suggester({inputid:"Autosuggest",listid:"listAutosuggest",rule:"BM9316", minchars:3, searchhistory:true, ajaxcontext:"", observes:""}); 
+
+
+      var el = document.Form0.$Autosuggest;
+      if(aDIS.isFirstFocusAllowed(el))
+       el.focus();
+    
+
+
+
+
+
+
+
+}
+
+aDIS.addListener('load', window, aDIS.onLoad);
+
+
+// --></script>
+
+
+<div class="aDISMaske">
+<form method="post" name="Form0" action="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLVX00p-varuba_4B033700_00000000/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Autosuggest,select,$FormConditional,textButton,$LinkSubmit$0,$LinkSubmit,$LinkSubmit$1,$Toolbar,$FormConditional$0,textButton$0,$FormConditional$1,textButton$1,$FormConditional$2,textButton$2,$FormConditional$3,textButton$3,$FormConditional$4,textButton$4,$FormConditional$5,textButton$5,$FormConditional$6,textButton$6,$FormConditional$7,textButton$7,textButton$8,textButton$9,textButton$10,textButton$11,textButton$12,textButton$13,textButton$14,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="9"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="342"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="T"/>
+<input type="hidden" name="$FormConditional$4" value="T"/>
+<input type="hidden" name="$FormConditional$5" value="T"/>
+<input type="hidden" name="$FormConditional$6" value="T"/>
+<input type="hidden" name="$FormConditional$7" value="T"/>
+
+
+
+
+
+		
+	
+
+
+
+	
+<div id="wrapper">
+  <div id="wrapper_inside">
+    <nav id="sprunglinks" aria-label="Sprunglinks">
+      <ul>
+        <li><a class="sprung" href="#main">Zum Inhalt</a></li>
+      </ul>
+    </nav>
+
+<!-- BEGIN Sticky-Wrapper -->
+<div class="sticky-wrapper">
+    <header id="header">
+      <div class="inside">
+         <div id="mhead-meta" class="block">
+          <div id="mhead-meta-inside">
+              <nav class="mod_navigation block" id="mnav" aria-label="Men&uuml; zum An-/Abmelden am Bibliothekssystem">
+<div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$Tree.treeNodes&amp;sp=SL1&amp;requestCount=9" class="tree_leaf_a">Anmelden</a></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Abmelden</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$Tree.treeNodes&amp;sp=SE&amp;requestCount=9" class="tree_leaf_a">Sitzung beenden</a></li>
+</ul></div>
+
+ </nav>
+               <nav id="lnav" aria-label="Service-Men�"><ul class="mod_navigation block">
+               <li id="lnav-gebaerdensprache"><a href="javascript:top.htmlOnLink('*SW41')">Geb&auml;rden</a></li>
+              <li id="lnav-leichte-sprache"><a href="javascript:top.htmlOnLink('*SW42')">Leichte Sprache</a></li>
+              <li id="lnav-haeufige-fragen"><a href="javascript:top.htmlOnLink('*SW9')">H&auml;ufige Fragen</a></li>
+              <li id="lnav-kontakt"><a href="javascript:top.htmlOnLink('*SW320')">Kontakt</a></li>
+              </ul></nav>
+          </div>
+        </div>
+        <div id="mhead" class="block">
+          <div id="mhead-inside">
+            <div id="logo" role="banner"><a href="javascript:top.htmlOnLink('*SW4')" title="Zur Startseite" aria-label="Zur Startseite"><img class="img-standard" src="/aDISWeb_vob/images/icons/VOEBB-Logo.png" alt="V&Ouml;BB Logo" width="146" height="150"><img class="img-fixed" src="/aDISWeb_vob/images/voebb-logo-fixed.svg" alt="V&Ouml;BB Logo" width="60" height="83"></a></div>
+             <div id="slogan-wrapper">
+              <div id="spruch">
+<span>
+Die neue Website des V&#214;BB
+</span>
+</div>
+              <div id="slogan">Wir bringen Medien in Bewegung</div>
+            </div>
+              <nav id="fontsizer" aria-label="Schriftgr&ouml;&szlig;e">
+               <ul>
+                 <li><a href="#" id="small" data-set-font-size="small"><span class="schrift">Schrift</span> <span class="schriftgroesse">klein</span></a></li>
+                 <li><a href="#" id="normal" data-set-font-size="medium" class="selected"><span class="schrift">Schrift</span> <span class="schriftgroesse">normal</span></a></li>
+                 <li><a href="#" id="big" data-set-font-size="large"><span class="schrift">Schrift</span> <span class="schriftgroesse">gro&szlig;</span></a></li>
+               </ul>
+             </nav>
+           </div>
+        </div>
+        <div class="nav-wrapper">
+        <nav id="hnav" class="mod_navigation block" aria-label="Hauptnavigation">
+            <input id="main-menu-state" type="checkbox">
+            <label class="main-menu-btn" for="main-menu-state" aria-label="Navigation aktivieren oder deaktivieren"><span class="main-menu-btn-icon"></span> Navigation</label>
+
+<!-- Menu -->
+          <ul class="cssmenu_ul sm sm-style" id="main-menu">
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink.directlink&amp;sp=S%24%24GFBO_41&amp;sp=SW4&amp;requestCount=9" title="" fld="$$GFBO_41">Start</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$0.directlink&amp;sp=S%24%24GFBO_42&amp;sp=SBK&amp;requestCount=9" title="" fld="$$GFBO_42">Mein Konto</a>
+</li>
+<li class="cssmenu_ul"><a href="#">Aktuelles</a>
+<ul class="menufts">
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$1.directlink&amp;sp=S%24%24GFBO_43&amp;sp=SW100&amp;requestCount=9" title="" fld="$$GFBO_43">Neuigkeiten</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$2.directlink&amp;sp=S%24%24GFBO_44&amp;sp=SW110&amp;requestCount=9" title="" fld="$$GFBO_44">Veranstaltungen</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$3.directlink&amp;sp=S%24%24GFBO_45&amp;sp=SW120&amp;requestCount=9" title="" fld="$$GFBO_45">Thementipps</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$4.directlink&amp;sp=S%24%24GFBO_46&amp;sp=SW130&amp;requestCount=9" title="" fld="$$GFBO_46">Projekte</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$5.directlink&amp;sp=S%24%24GFBO_47&amp;sp=SW140&amp;requestCount=9" title="" fld="$$GFBO_47">Neuerwerbungen</a>
+</li>
+</ul></li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$6.directlink&amp;sp=S%24%24GFBO_48&amp;sp=SW2&amp;requestCount=9" title="" fld="$$GFBO_48">Digitale Angebote</a>
+</li>
+<li class="cssmenu_ul"><a href="#">Services</a>
+<ul class="menufts">
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$7.directlink&amp;sp=S%24%24GFBO_49&amp;sp=SW200&amp;requestCount=9" title="" fld="$$GFBO_49">Bestellungen</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$8.directlink&amp;sp=S%24%24GFBO_50&amp;sp=SW210&amp;requestCount=9" title="" fld="$$GFBO_50">Fernleihe</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$9.directlink&amp;sp=S%24%24GFBO_51&amp;sp=SW220&amp;requestCount=9" title="" fld="$$GFBO_51">Fristverlängerung</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$10.directlink&amp;sp=S%24%24GFBO_52&amp;sp=SW230&amp;requestCount=9" title="" fld="$$GFBO_52">Entgeltzahlung</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$11.directlink&amp;sp=S%24%24GFBO_53&amp;sp=SW240&amp;requestCount=9" title="" fld="$$GFBO_53">Benachrichtigung</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$12.directlink&amp;sp=S%24%24GFBO_54&amp;sp=SW250&amp;requestCount=9" title="" fld="$$GFBO_54">Rückgabeservice</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$13.directlink&amp;sp=S%24%24GFBO_55&amp;sp=SW260&amp;requestCount=9" title="" fld="$$GFBO_55">Verwaltungsservice</a>
+</li>
+</ul></li>
+<li class="cssmenu_ul"><a href="#">Über uns</a>
+<ul class="menufts">
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$14.directlink&amp;sp=S%24%24GFBO_56&amp;sp=SW300&amp;requestCount=9" title="" fld="$$GFBO_56">Wir bilden aus</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$15.directlink&amp;sp=S%24%24GFBO_57&amp;sp=SW310&amp;requestCount=9" title="" fld="$$GFBO_57">Auszeichnungen</a>
+</li>
+<li class="cssmenu_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$16.directlink&amp;sp=S%24%24GFBO_58&amp;sp=SW320&amp;requestCount=9" title="" fld="$$GFBO_58">Kontakt</a>
+</li>
+</ul></li>
+</ul>
+        </nav>
+        </div>
+       </div>
+    </header>
+    <div class="search-wrapper">
+    <div id="R22">
+ <div id="search" role="search" aria-label="Schnellsuche">
+      <div class="grid-wrapper">
+        <div class="grid-row">
+          <div class="grid-col col-12">
+            <div class="grid-inside">
+            
+              <div class="field-phrase">
+                <label for="Autosuggest"><span class="fbz-text">Suchbegriff</span></label>
+<input type="text" autocomplete="off" id="Autosuggest" list="listAutosuggest" data-allowReturn="true" placeholder="" name="$Autosuggest" fld="THEMA2_1" value="dklajdsk;fjhasd;kfjhasd;kfjhas;djkf"/><datalist id="listAutosuggest" role="listbox" aria-live="polite"></datalist> </div>
+              
+              <div class="field-library">
+                <label for="SUCBER_1"><span class="fbz-text">Suchbereich</span></label>
+<select name="select" id="SUCBER_1" class="fb">
+<option value=""></option>
+<option value="&#220;berall suchen" selected="selected">&#220;berall suchen</option>
+<option value="Bibliotheksbestand">Bibliotheksbestand</option>
+<option value="Fernleihe (deutschlandweit)">Fernleihe (deutschlandweit)</option>
+<option value="Artikel und mehr">Artikel und mehr</option>
+<option value="Charlottenburg-Wilmersdorf: Adolf-Reichwein-Bibliothek">Charlottenburg-Wilmersdorf: Adolf-Reichwein-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Dietrich-Bonhoeffer-Bibliothek">Charlottenburg-Wilmersdorf: Dietrich-Bonhoeffer-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Eberhard-Alexander-Burgh-Bibliothek">Charlottenburg-Wilmersdorf: Eberhard-Alexander-Burgh-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Heinrich-Schulz-Bibliothek mit Musikabteilung">Charlottenburg-Wilmersdorf: Heinrich-Schulz-Bibliothek mit Musikabteilung</option>
+<option value="Charlottenburg-Wilmersdorf: Ingeborg-Bachmann-Bibliothek">Charlottenburg-Wilmersdorf: Ingeborg-Bachmann-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Johanna-Moosdorf-Bibliothek">Charlottenburg-Wilmersdorf: Johanna-Moosdorf-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Stadtteilbibliothek Halemweg">Charlottenburg-Wilmersdorf: Stadtteilbibliothek Halemweg</option>
+<option value="Friedrichshain - Kreuzberg: Else-Ury-Bibliothek">Friedrichshain - Kreuzberg: Else-Ury-Bibliothek</option>
+<option value="Friedrichshain - Kreuzberg: Friedrich-von-Raumer-Bibliothek">Friedrichshain - Kreuzberg: Friedrich-von-Raumer-Bibliothek</option>
+<option value="Friedrichshain - Kreuzberg: Pablo-Neruda-Bibliothek">Friedrichshain - Kreuzberg: Pablo-Neruda-Bibliothek</option>
+<option value="Friedrichshain - Kreuzberg: Schulbibliothek Bl&#252;cherstr. (nicht &#246;ffentlich)">Friedrichshain - Kreuzberg: Schulbibliothek Bl&#252;cherstr. (nicht &#246;ffentlich)</option>
+<option value="Friedrichshain - Kreuzberg: Wilhelm-Liebknecht-/Namik-Kemal-Bibliothek">Friedrichshain - Kreuzberg: Wilhelm-Liebknecht-/Namik-Kemal-Bibliothek</option>
+<option value="Lichtenberg: Anna-Seghers-Bibliothek">Lichtenberg: Anna-Seghers-Bibliothek</option>
+<option value="Lichtenberg: Anton-Saefkow-Bibliothek">Lichtenberg: Anton-Saefkow-Bibliothek</option>
+<option value="Lichtenberg: Bodo-Uhse-Bibliothek">Lichtenberg: Bodo-Uhse-Bibliothek</option>
+<option value="Lichtenberg: Egon-Erwin-Kisch-Bibliothek">Lichtenberg: Egon-Erwin-Kisch-Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord">Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord</option>
+<option value="Marzahn - Hellersdorf: Bibl. Mahlsdorf">Marzahn - Hellersdorf: Bibl. Mahlsdorf</option>
+<option value="Marzahn - Hellersdorf: Ehm-Welk-Bibliothek">Marzahn - Hellersdorf: Ehm-Welk-Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Erich-Weinert-Bibliothek">Marzahn - Hellersdorf: Erich-Weinert-Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Heinrich-von-Kleist-Bibliothek">Marzahn - Hellersdorf: Heinrich-von-Kleist-Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Mark-Twain-Bibliothek">Marzahn - Hellersdorf: Mark-Twain-Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Musikbibliothek">Marzahn - Hellersdorf: Musikbibliothek</option>
+<option value="Mitte: Bibliothek Tiergarten S&#252;d">Mitte: Bibliothek Tiergarten S&#252;d</option>
+<option value="Mitte: Bibliothek am Luisenbad">Mitte: Bibliothek am Luisenbad</option>
+<option value="Mitte: Bruno-Loesche-Bibliothek">Mitte: Bruno-Loesche-Bibliothek</option>
+<option value="Mitte: Fahrbibliothek Mitte Bus 1">Mitte: Fahrbibliothek Mitte Bus 1</option>
+<option value="Mitte: Fahrbibliothek Mitte Bus 2">Mitte: Fahrbibliothek Mitte Bus 2</option>
+<option value="Mitte: Fahrbibliothek Mitte Bus 3">Mitte: Fahrbibliothek Mitte Bus 3</option>
+<option value="Mitte: Hansabibliothek">Mitte: Hansabibliothek</option>
+<option value="Mitte: Kurt-Tucholsky-Bibliothek (Mitte)">Mitte: Kurt-Tucholsky-Bibliothek (Mitte)</option>
+<option value="Mitte: Philipp-Schaeffer-Bibliothek">Mitte: Philipp-Schaeffer-Bibliothek</option>
+<option value="Mitte: Schiller-Bibliothek mit @hugo Jugendmedienetage">Mitte: Schiller-Bibliothek mit @hugo Jugendmedienetage</option>
+<option value="Neukoelln: Bibliothek Britz S&#252;d">Neukoelln: Bibliothek Britz S&#252;d</option>
+<option value="Neukoelln: Bibliothek Rudow">Neukoelln: Bibliothek Rudow</option>
+<option value="Neukoelln: Bibliothek im Gemeinschaftshaus">Neukoelln: Bibliothek im Gemeinschaftshaus</option>
+<option value="Neukoelln: Helene-Nathan-Bibliothek">Neukoelln: Helene-Nathan-Bibliothek</option>
+<option value="Neukoelln: Museum Neuk&#246;lln (kein Ausgabeort)">Neukoelln: Museum Neuk&#246;lln (kein Ausgabeort)</option>
+<option value="Pankow: Bettina-von-Arnim-Bibliothek">Pankow: Bettina-von-Arnim-Bibliothek</option>
+<option value="Pankow: Bibliothek Buch">Pankow: Bibliothek Buch</option>
+<option value="Pankow: Bibliothek Karow">Pankow: Bibliothek Karow</option>
+<option value="Pankow: Bibliothek am Wasserturm">Pankow: Bibliothek am Wasserturm</option>
+<option value="Pankow: Heinrich-B&#246;ll-Bibliothek">Pankow: Heinrich-B&#246;ll-Bibliothek</option>
+<option value="Pankow: Janusz-Korczak-Bibliothek">Pankow: Janusz-Korczak-Bibliothek</option>
+<option value="Pankow: Kurt-Tucholsky-Bibliothek (Pankow)">Pankow: Kurt-Tucholsky-Bibliothek (Pankow)</option>
+<option value="Pankow: Museumsarchiv Pankow (kein Ausgabeort)">Pankow: Museumsarchiv Pankow (kein Ausgabeort)</option>
+<option value="Pankow: Wolfdietrich-Schnurre-Bibliothek">Pankow: Wolfdietrich-Schnurre-Bibliothek</option>
+<option value="Reinickendorf: Bibl. Frohnau">Reinickendorf: Bibl. Frohnau</option>
+<option value="Reinickendorf: Bibl. M&#228;rkisches Viertel">Reinickendorf: Bibl. M&#228;rkisches Viertel</option>
+<option value="Reinickendorf: Bibl. Reinickendorf - West">Reinickendorf: Bibl. Reinickendorf - West</option>
+<option value="Reinickendorf: Bibliothek am Sch&#228;fersee  Stadtteilbibliothek Reinickendorf-Ost">Reinickendorf: Bibliothek am Sch&#228;fersee  Stadtteilbibliothek Reinickendorf-Ost</option>
+<option value="Reinickendorf: Humboldt-Bibliothek">Reinickendorf: Humboldt-Bibliothek</option>
+<option value="Reinickendorf: Humboldtschule (nicht &#246;ffentlich)">Reinickendorf: Humboldtschule (nicht &#246;ffentlich)</option>
+<option value="Reinickendorf: Ju.bibl. Humboldt-Bibliothek">Reinickendorf: Ju.bibl. Humboldt-Bibliothek</option>
+<option value="Reinickendorf: Kleiner B&#252;cherbus Reinickendorf">Reinickendorf: Kleiner B&#252;cherbus Reinickendorf</option>
+<option value="Spandau: Fahrbibliothek Spandau">Spandau: Fahrbibliothek Spandau</option>
+<option value="Spandau: Hauptbibliothek Spandau">Spandau: Hauptbibliothek Spandau</option>
+<option value="Spandau: Kinder- und Jugendbibliothek Spandau">Spandau: Kinder- und Jugendbibliothek Spandau</option>
+<option value="Spandau: Schulbibliothek Carlo Schmid (nicht oeffentlich)">Spandau: Schulbibliothek Carlo Schmid (nicht oeffentlich)</option>
+<option value="Spandau: Stadtteilbibliothek Falkenhagener Feld">Spandau: Stadtteilbibliothek Falkenhagener Feld</option>
+<option value="Spandau: Stadtteilbibliothek Haselhorst">Spandau: Stadtteilbibliothek Haselhorst</option>
+<option value="Spandau: Stadtteilbibliothek Heerstrasse">Spandau: Stadtteilbibliothek Heerstrasse</option>
+<option value="Spandau: Stadtteilbibliothek Kladow">Spandau: Stadtteilbibliothek Kladow</option>
+<option value="Steglitz - Zehlendorf: Fahrbibliothek Steglitz-Zehlendorf">Steglitz - Zehlendorf: Fahrbibliothek Steglitz-Zehlendorf</option>
+<option value="Steglitz - Zehlendorf: Gottfried-Benn-Bibliothek">Steglitz - Zehlendorf: Gottfried-Benn-Bibliothek</option>
+<option value="Steglitz - Zehlendorf: Ingeborg-Drewitz-Bibliothek">Steglitz - Zehlendorf: Ingeborg-Drewitz-Bibliothek</option>
+<option value="Steglitz - Zehlendorf: Stadtteilbibliothek Lankwitz">Steglitz - Zehlendorf: Stadtteilbibliothek Lankwitz</option>
+<option value="Tempelhof-Sch&#246;neberg: Bezirkszentralbibliothek Tempelhof-Sch&#246;neberg">Tempelhof-Sch&#246;neberg: Bezirkszentralbibliothek Tempelhof-Sch&#246;neberg</option>
+<option value="Tempelhof-Sch&#246;neberg: Fahrbibliothek Tempelhof-Sch&#246;neberg">Tempelhof-Sch&#246;neberg: Fahrbibliothek Tempelhof-Sch&#246;neberg</option>
+<option value="Tempelhof-Sch&#246;neberg: Mittelpunktbibliothek Sch&#246;neberg">Tempelhof-Sch&#246;neberg: Mittelpunktbibliothek Sch&#246;neberg</option>
+<option value="Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Lichtenrade">Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Lichtenrade</option>
+<option value="Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Marienfelde">Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Marienfelde</option>
+<option value="Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Sch&#246;neberg-Nord">Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Sch&#246;neberg-Nord</option>
+<option value="Tempelhof-Sch&#246;neberg: Thomas-Dehler-Bibliothek">Tempelhof-Sch&#246;neberg: Thomas-Dehler-Bibliothek</option>
+<option value="Treptow - Koepenick: Fahrbibliothek Treptow-K&#246;penick">Treptow - Koepenick: Fahrbibliothek Treptow-K&#246;penick</option>
+<option value="Treptow - Koepenick: Fahrbibliothek Treptow-K&#246;penick Kleiner Bus">Treptow - Koepenick: Fahrbibliothek Treptow-K&#246;penick Kleiner Bus</option>
+<option value="Treptow - Koepenick: Mittelpunktbibliothek K&#246;penick Alter Markt">Treptow - Koepenick: Mittelpunktbibliothek K&#246;penick Alter Markt</option>
+<option value="Treptow - Koepenick: Mittelpunktbibliothek Treptow Alte Feuerwache">Treptow - Koepenick: Mittelpunktbibliothek Treptow Alte Feuerwache</option>
+<option value="Treptow - Koepenick: Stadtteilbibliothek Adlershof Stefan Heym">Treptow - Koepenick: Stadtteilbibliothek Adlershof Stefan Heym</option>
+<option value="Treptow - Koepenick: Stadtteilbibliothek Alt-Treptow Manfred Bofinger">Treptow - Koepenick: Stadtteilbibliothek Alt-Treptow Manfred Bofinger</option>
+<option value="Treptow - Koepenick: Stadtteilbibliothek Altglienicke">Treptow - Koepenick: Stadtteilbibliothek Altglienicke</option>
+<option value="Treptow - Koepenick: Stadtteilbibliothek Friedrichshagen">Treptow - Koepenick: Stadtteilbibliothek Friedrichshagen</option>
+<option value="ZLB Kinder- und Jugendbibliothek">ZLB Kinder- und Jugendbibliothek</option>
+<option value="ZLB Zentral- und Landesbibliothek">ZLB Zentral- und Landesbibliothek</option>
+</select>
+ </div>
+              
+              <div class="field-buttons">
+
+
+<input type="submit" name="textButton" value="Suchen" class="imp-button suche-starten" fld="$$GFBO_8"/>
+
+
+
+ </div>
+
+              <div class="field-buttons-adv">
+
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/SEL1_ddGFBO_7.directlink&amp;sp=S%24%24GFBO_7&amp;sp=SS6&amp;requestCount=9" name="textButton" title="Erweiterte Suche" class="link-button search-adv" fld="$$GFBO_7">Erweiterte Suche</a>
+ </div>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    </div>
+   </div>
+<!-- END Sticky-Wrapper -->
+     <div id="container" class="container-wrapper">
+      <div id="container-inside">
+        <main id="main" aria-label="Hauptbereich">
+          <div class="inside">
+<div id="kartei-nav" class="tabctl" Focus="true">	<div class="tab_outer">
+<nav class="tab_nav" aria-label="Navigation">	<ul class="tab_ul">
+
+
+	<li class="tab_lic">
+<input type="hidden" name="_linkSubmit"/><a href="javascript:submitLink(document.Form0,&quot;$LinkSubmit$0&quot;);" class="tab_ac">
+Bibliotheksbestand
+</a>	</li>
+
+
+	<li class="tab_li">
+<a href="javascript:submitLink(document.Form0,&quot;$LinkSubmit&quot;);" class="tab_a">
+Fernleihe (deutschlandweit)
+</a>	</li>
+
+
+
+	<li class="tab_li">
+<a href="javascript:submitLink(document.Form0,&quot;$LinkSubmit$1&quot;);" class="tab_a">
+Artikel und mehr
+</a>	</li>
+
+
+	</ul>
+</nav>	</div>	
+	<div style="clear:both;">
+<div class="aDISPage" style="height: 100%;">
+
+
+<!-- GRID SYSTEM START -->
+            <div class="grid-wrapper">
+              <div class="grid-row">
+
+<!-- START: KOPFBEREICH -->
+                <div class="grid-col col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                  <div class="grid-inside">
+                     <h1><span class="invisible">Aktuelle Seite: </span>
+                      Trefferliste
+                      </h1>
+                  </div>
+                </div>
+
+<!-- START Druckbutton -->
+                    <div class="grid-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                      <div class="grid-inside">
+                        <div class="wissen">
+                          <p id="druckversion">
+                          <a href="#" onclick="openPP(); return false;" class="drucken-no">Druckversion</a>
+                          <a href="javascript:window.print()" class="drucken">Drucken</a>
+                          <a href="javascript:window.close()" class="drucken abbrechen">Abbrechen</a>
+                           </p>
+                        </div>
+                      </div>
+                    </div>
+
+<!-- Toolbar -->
+                <div class="grid-col col-12">
+                  <div class="grid-inside">
+                    <div id="R06">
+  <p>
+<div class="html_div" style="width:100%; height:100%;"><div class="alert">Ihre Suche in allen Suchbereichen war erfolglos. Bitte verändern Sie Ihre Suchanfrage</div> Gesucht wurde mit "Freie Suche = dklajdsk;fjhasd;kfjhasd;kfjhas;djkf" in Bibliotheksbestand</div> </p>
+</div>
+<div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53010E00_36C0CC00.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zur&#252;ck zur letzten Anzeige" id="Toolbar_0" name="$Toolbar_0" title="zur&#252;ck zur letzten Anzeige" onmouseover="self.status='zur&#252;ck zur letzten Anzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53006900_370BF180.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zum Anfang" id="Toolbar_1" name="$Toolbar_1" disabled="disabled" title="zum Anfang" onmouseover="self.status='zum Anfang';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_1"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011500_370BF180.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zur&#252;ck" id="Toolbar_2" name="$Toolbar_2" disabled="disabled" title="zur&#252;ck" onmouseover="self.status='zur&#252;ck';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_2"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011400_370BF180.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="n&#228;chster" id="Toolbar_3" name="$Toolbar_3" disabled="disabled" title="n&#228;chster" onmouseover="self.status='n&#228;chster';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_3"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011B00_370BF180.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zum Ende" id="Toolbar_4" name="$Toolbar_4" disabled="disabled" title="zum Ende" onmouseover="self.status='zum Ende';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_4"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53002800_31169A00.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zur Vollanzeige der Treffer" id="Toolbar_5" name="$Toolbar_5" title="zur Vollanzeige der Treffer" onmouseover="self.status='zur Vollanzeige der Treffer';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_5"><span class="toolbar_txt">Vollanzeige</span></label></li></ul><div style="clear:both"></div></div> </div>
+                </div>
+
+<!-- START: HAUPTBEREICH-Spalte -->
+                <div class="grid-col col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 arena-standard">
+                  <div class="grid-inside">
+                     <section id="results">
+                       <div id="R07">
+  <div class="resultlist">
+
+	<div class="rTable_div">
+<table class="rTable_table" imgAuthHostFld="CHOST_1">
+	<thead class="rTable_thead">
+				<tr>
+	</tr>	
+			</thead>
+			<tbody>
+	</tbody>
+</table>	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ </div>
+</div>
+                     </section>
+                  </div>
+                </div>
+
+<!-- START: Hilfetext 1 -->
+                 <div class="grid-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 arena-standard arena-trefferliste arena-vollanzeige">
+                  <div class="grid-inside">
+                    <section id="options">
+                       <div id="R04">
+  <p>
+
+
+<input type="submit" name="textButton$0" value="Meine Suche speichern" class="imp-button speichern" fld="$$GFBO_6"/>
+
+
+
+ </p>
+</div>
+                      <div class="title-widget"><h3><i class="icon merkliste" aria-hidden="true"></i>Merklisten</h3></div>
+                       <div class="helptext">
+                        <div class="accordion">
+                          <h4 class="toggler" role="tab" id="accordion-help-1-toggler" aria-controls="accordion-help-1-content" aria-selected="false" aria-expanded="false">
+                            <i class="accordion-icon icon-help" aria-hidden="true"></i>Merkliste aktivieren
+                           </h4>
+                          <div class="accordion-content" id="accordion-help-1-content" aria-labelledby="accordion-help-1-toggler" role="tabpanel" aria-hidden="true"><div class="accordion-inner">
+<div class="html_div">Durch Anklicken einer Merkliste wird diese an die erste Position platziert und wird zur <strong>aktiven Merkliste</strong>. Ist das Stern-Icon gefüllt, führt der Klick auf diese <strong>aktive Merkliste</strong> zur Anzeige der Merkliste.</div> </div></div>
+                        </div>
+                        <ul class="cssmenu_ul" id="Mainmenu">
+<li class="cssmenu_ul"><a href="#"> </a>
+<ul class="menufts">
+<li class="var_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$17.directlink&amp;sp=S%24%24GFBO_41&amp;sp=SML01&amp;requestCount=9" title="" data-ajax="$MLFLD_1" fld="$$GFBO_41"><span class="merkzettel status-inactive">Merkliste</span></a>
+</li>
+<li class="var_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$18.directlink&amp;sp=S%24%24GFBO_42&amp;sp=SML02&amp;requestCount=9" title="" data-ajax="$MLFLD_2" fld="$$GFBO_42"></a>
+</li>
+<li class="var_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$19.directlink&amp;sp=S%24%24GFBO_43&amp;sp=SML03&amp;requestCount=9" title="" data-ajax="$MLFLD_3" fld="$$GFBO_43"></a>
+</li>
+<li class="var_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$20.directlink&amp;sp=S%24%24GFBO_44&amp;sp=SML04&amp;requestCount=9" title="" data-ajax="$MLFLD_4" fld="$$GFBO_44"></a>
+</li>
+<li class="var_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$21.directlink&amp;sp=S%24%24GFBO_45&amp;sp=SML05&amp;requestCount=9" title="" data-ajax="$MLFLD_5" fld="$$GFBO_45"></a>
+</li>
+<li class="var_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$22.directlink&amp;sp=S%24%24GFBO_46&amp;sp=SML06&amp;requestCount=9" title="" data-ajax="$MLFLD_6" fld="$$GFBO_46"></a>
+</li>
+<li class="var_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$23.directlink&amp;sp=S%24%24GFBO_47&amp;sp=SML07&amp;requestCount=9" title="" data-ajax="$MLFLD_7" fld="$$GFBO_47"></a>
+</li>
+<li class="var_button">
+<a href="/aDISWeb/app;jsessionid=D51F996BBB0A9F62A751EB8065359542?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$24.directlink&amp;sp=S%24%24GFBO_48&amp;sp=SML08&amp;requestCount=9" title="" data-ajax="$MLFLD_8" fld="$$GFBO_48"></a>
+</li>
+</ul></li>
+</ul>
+                       </div>
+
+<!-- START Hilfetext 2 -->
+                        <div class="title-widget"><h3><i class="icon merkliste" aria-hidden="true"></i>Trefferliste filtern</h3></div>
+                        <div class="helptext">
+                          <div class="accordion">
+                          <h4 class="toggler" role="tab" id="accordion-help-2-toggler" aria-controls="accordion-help-2-content" aria-selected="false" aria-expanded="false">
+                          <i class="accordion-icon icon-help" aria-hidden="true"></i>So funktioniert das Filtern
+                          </h4>
+                          <div class="accordion-content" id="accordion-help-2-content" aria-labelledby="accordion-help-2-toggler" role="tabpanel" aria-hidden="true"><div class="accordion-inner">
+<div class="html_div">Klicken Sie einen Filter an, um dessen Werte anzuzeigen.<br/> Sie können Ihre Trefferliste einschränken, indem Sie einen oder mehrere dieser Werte von einem oder mehrere(n) Filtern auswählen und auf die Schaltfläche "Filter aktivieren/deaktivieren" klicken. Sie können Ihre eingeschränkte Trefferliste wieder erweitern, indem Sie die Häkchen der Werte unter der Rubrik "Aktive Filter" wieder entfernen und die Schaltfläche "Filter aktivieren/deaktivieren" auslösen.</div> </div></div>
+                        </div>
+
+<!-- STOP Hilfetext 2: Trefferliste filtern -->
+                      <div class="filter-widget">
+                      <div id="R19">
+  <p class="widget-submit block">
+
+
+<input type="submit" name="textButton$1" value="Filtern" class="imp-button filter" fld="$$GFBO_11"/>
+
+
+
+ </p>
+</div>
+<div class="cbtree_div" role="tabpanel">
+<ul class="cbtree_ul" role="tablist">
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_0" name="PTL1_tree_1_0" id="but-PTL1_tree_1_0" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Medienart<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_2" name="PTL1_tree_1_2" id="but-PTL1_tree_1_2" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Bibliothek<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_30" name="PTL1_tree_1_30" id="but-PTL1_tree_1_30" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Schlagwort<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_36" name="PTL1_tree_1_36" id="but-PTL1_tree_1_36" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Jahr<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_38" name="PTL1_tree_1_38" id="but-PTL1_tree_1_38" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Sprache<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_40" name="PTL1_tree_1_40" id="but-PTL1_tree_1_40" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Zielgruppe<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+</ul></div>
+ </div>
+                      <div id="R09">
+  <p class="widget-submit block">
+
+
+<input type="submit" name="textButton$2" value="Filtern" class="imp-button filter" fld="$$GFBO_12"/>
+
+
+
+ </p>
+</div>
+                      <div class="title-widget"><h3><i class="icon other" aria-hidden="true"></i>Weitere Optionen</h3></div>
+                      <div id="R05">
+<div class="accordion">
+  <h3 class="toggler" role="tab" id="accordion-R05-toggler" aria-controls="accordion-R05-content" aria-selected="false" aria-expanded="false">
+    <i class="accordion-icon icon-sort" aria-hidden="true"></i><span class="fbz-text">Sortierung &#228;ndern</span> </h3>
+  <div class="accordion-content" id="accordion-R05-content" aria-labelledby="accordion-R05-toggler" role="tabpanel" aria-hidden="true">
+    <div class="accordion-inner">
+
+      <p>
+
+
+<input type="submit" name="textButton$3" value="Relevanz" class="buttong" fld="$$GFBO_13"/>
+
+
+
+
+
+
+<input type="submit" name="textButton$4" value="Titel" class="buttong" fld="$$GFBO_19"/>
+
+
+
+
+
+
+<input type="submit" name="textButton$5" value="Verfasser" class="buttong" fld="$$GFBO_2"/>
+
+
+
+
+
+
+<input type="submit" name="textButton$6" value="Jahr abw&#228;rts" class="buttong" fld="$$GFBO_3"/>
+
+
+
+
+
+
+<input type="submit" name="textButton$7" value="Jahr aufw&#228;rts" class="buttong" fld="$$GFBO_4"/>
+
+
+
+ </p>
+
+    </div>
+  </div>
+</div>
+</div>
+                      <div id="R11">
+
+<div class="accordion">
+  <h3 class="toggler" role="tab" id="accordion-R11-toggler" aria-controls="accordion-R11-content" aria-selected="false" aria-expanded="false">
+    <i class="accordion-icon icon-export" aria-hidden="true"></i><span class="fbz-text">Titel exportieren</span> </h3>
+  <div class="accordion-content" id="accordion-R11-content" aria-labelledby="accordion-R11-toggler" role="tabpanel" aria-hidden="true">
+    <div class="accordion-inner">
+<p class="buttong">
+
+<input type="submit" name="textButton$8" value="BibTeX" class="buttong"/>
+
+<input type="submit" name="textButton$9" value="Citavi" class="buttong"/>
+
+<input type="submit" name="textButton$10" value="EndNote" class="buttong"/>
+
+<input type="submit" name="textButton$11" value="ProCite" class="buttong"/>
+
+<input type="submit" name="textButton$12" value="Reference Manager" class="buttong"/>
+
+<input type="submit" name="textButton$13" value="RefWorks" class="buttong"/>
+
+<input type="submit" name="textButton$14" value="Zotero" class="buttong"/>
+
+</p> </div>
+  </div>
+</div>
+
+</div>
+                     </section>
+                  </div>
+                </div>
+
+<!-- ENDE: OPTIONEN-Spalte RECHTS -->
+                 <div class="grid-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 arena-all">
+                  <div class="grid-inside">
+<div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53010E00_36C0CC00.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zur&#252;ck zur letzten Anzeige" id="Toolbar$0_0" name="$Toolbar$0_0" title="zur&#252;ck zur letzten Anzeige" onmouseover="self.status='zur&#252;ck zur letzten Anzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53006900_370BF180.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zum Anfang" id="Toolbar$0_1" name="$Toolbar$0_1" disabled="disabled" title="zum Anfang" onmouseover="self.status='zum Anfang';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_1"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011500_370BF180.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zur&#252;ck" id="Toolbar$0_2" name="$Toolbar$0_2" disabled="disabled" title="zur&#252;ck" onmouseover="self.status='zur&#252;ck';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_2"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011400_370BF180.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="n&#228;chster" id="Toolbar$0_3" name="$Toolbar$0_3" disabled="disabled" title="n&#228;chster" onmouseover="self.status='n&#228;chster';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_3"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011B00_370BF180.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zum Ende" id="Toolbar$0_4" name="$Toolbar$0_4" disabled="disabled" title="zum Ende" onmouseover="self.status='zum Ende';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_4"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53002800_31169A00.png;jsessionid=D51F996BBB0A9F62A751EB8065359542" alt="zur Vollanzeige der Treffer" id="Toolbar$0_5" name="$Toolbar$0_5" title="zur Vollanzeige der Treffer" onmouseover="self.status='zur Vollanzeige der Treffer';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_5"><span class="toolbar_txt">Vollanzeige</span></label></li></ul><div style="clear:both"></div></div> </div>
+                </div>
+               </div>
+            </div>
+
+<!-- GRID SYSTEM STOP -->
+            
+</div> <!-- page -->
+	</div>
+</div>
+
+ <!-- block-->
+ <!-- block-->
+ <!-- block-->
+
+          </div>
+        </main>
+      </div>
+    </div>
+
+<!-- STOP Container -->
+     <footer id="footer">
+      <div class="inside">
+            <div class="grid-wrapper">
+              <div class="grid-row">
+                 <div id="fnav-logo" class="grid-col col-12 col-sm-2 col-md-5 col-lg-3">
+                  <img src="/aDISWeb_vob/images/icons/VOEBB-Logo-Footer.svg" width="157" height="218" alt="V&Ouml;BB Logo">
+                </div>
+                <div id="legal" class="grid-col col-12 col-sm-10 col-md-5 col-lg-7">
+                  <nav class="mod_navigation block" aria-label="Men&uuml;: &Uuml;bersicht, Nutzungsbedingungen und sonstige rechtliche Hinweise">
+                    <ul>
+                      <li><a href="/aDISWeb_vob/entgelt.html" target="_blank" aria-label="Benutzungs- und Entgeltordnung (neues Browser-Fenster)">Benutzungs- und Entgeltordnung</a></li>
+                      <li><a href="/aDISWeb_vob/datenschutz.html" target="_blank" aria-label="Datenschutz (neues Browser-Fenster)">Datenschutz</a></li>
+                      <li><a href="/aDISWeb_vob/impressum.html" target="_blank" aria-label="Impressum (neues Browser-Fenster)">Impressum</a></li>
+                    </ul>
+                  </nav>
+                </div>
+
+<!--
+                <div id="social" class="grid-col col-12 col-md-2 col-lg-2">
+                  <nav class="mod_navigation block" aria-label="Men&uuml;: Soziale Medien">
+                    <ul>                                                                                                                 
+                      <li id="snav-facebook"><a href="#" target="_blank" rel="nofollow noopener" aria-label="Externer Link: facebook-Seite des V&Ouml;BB (neues Browser-Fenster)">facebook</a></li>
+                      <li id="snav-twitter"><a href="#" target="_blank" rel="nofollow noopener" aria-label="Externer Link: twitter-Seite des V&Ouml;BB (neues Browser-Fenster)">twitter</a></li>
+                      <li id="snav-youtube"><a href="#r" target="_blank" rel="nofollow noopener" aria-label="Externer Link: youtube-Seite des V&Ouml;BB (neues Browser-Fenster)">youtube</a></li>
+                    </ul>
+                  </nav>
+                </div>
+                -->
+                 <div id="toplink" class="grid-col col-12 col-md-2 col-lg-2">
+                  <p id="goingup" class="block">
+                    <a href="#wrapper" aria-label="Nach oben zum Seitenanfang" title="Nach oben zum Seitenanfang">Nach oben</a>
+                  </p>
+                </div>
+                <div class="grid-col col-12 offset-md-5 col-md-5">
+                  <p id="credits">
+                    &copy; Verbund der &Ouml;ffentlichen Bibliotheken Berlins, 2019<br>
+                    <a href="https://www.astec.de" target="_blank">Barrierefreie Bibliothekssoftware der aStec angewandte Systemtechnik</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+        <div class="clear"></div>
+      </div>
+    </footer>
+  </div>
+</div>
+<script src="/aDISWeb_vob/js/scripts-main.js"></script>
+<script src="/aDISWeb_vob/js/fixedThing.js"></script>
+
+</form>
+</div>
+</body>
+</html>

@@ -1,34 +1,13 @@
 # voebb-web
+A alternative web interface for voebb.de with the ability to bookmark media (books, cds, etc). It is available under http://voebb-web.herokuapp.com/.
 
-## Project setup
-```
-yarn install
-```
+It succeeds the desktop application [voebb-app](https://github.com/johannesschweig/voebb-app/) for mac and  linux.
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Run your end-to-end tests
-```
-yarn test:e2e
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Run the application
+`npm run dev`
+## Linting
+`npm run lint` or `npm run lint` which also tries to fix linting errors.
+## Unit tests
+`npm run unit`
+## E2E tests
+`npm run e2e`

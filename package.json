@@ -1,14 +1,15 @@
 {
   "name": "voebb-web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "start": "node server.js",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "unit": "vue-cli-service test:unit",
+    "e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
+    "lint:fix": "vue-cli-service lint --fix"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",

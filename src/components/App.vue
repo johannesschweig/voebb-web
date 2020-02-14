@@ -8,19 +8,13 @@
 </template>
 
 <script>
-import BookmarksPage from './BookmarksPage.vue'
 import Navigation from './Navigation.vue'
-import SearchPage from './SearchPage.vue'
-import SettingsPage from './SettingsPage.vue'
 import { mapState } from 'vuex'
 // import { benchmark } from './utils/benchmark'
 
 export default {
   components: {
-    BookmarksPage,
     Navigation,
-    SearchPage,
-    SettingsPage
   },
   computed: mapState({
     'currentPage': state => state.navigation.currentPage

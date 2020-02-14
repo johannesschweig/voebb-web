@@ -9,6 +9,9 @@ describe('BookmarkButtonIcon.vue', () => {
       },
       computed: {
         active: () => true
+      },
+      stubs: {
+        BookmarkIcon: true
       }
     })
 
@@ -22,6 +25,9 @@ describe('BookmarkButtonIcon.vue', () => {
       },
       computed: {
         active: () => false
+      },
+      stubs: {
+        BookmarkIcon: true
       }
     })
 

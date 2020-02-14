@@ -78,6 +78,10 @@ describe('Copies.vue', () => {
         isDone: () => true,
         getPreferredLibs: () => [],
         getNotPreferredLibsString: () => ''
+      },
+      stubs: {
+        LibraryIcon: true,
+        SignatureIcon: true
       }
     })
 
@@ -95,6 +99,10 @@ describe('Copies.vue', () => {
         isDone: () => true,
         getPreferredLibs: () => instances,
         getNotPreferredLibsString: () => 'foo, bar, foo'
+      },
+      stubs: {
+        LibraryIcon: true,
+        SignatureIcon: true
       }
     })
 

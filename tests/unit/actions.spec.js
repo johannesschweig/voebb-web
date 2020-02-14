@@ -1,4 +1,4 @@
-import actions from '../../src/renderer/store/actions'
+import actions from '../../src/store/actions'
 
 describe('actions.js', () => {
   it('adds bookmarks', () => {

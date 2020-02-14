@@ -140,7 +140,7 @@ export function search (term, mocked = false) {
       })
   } else {
     // reads a mocked html file and extracts the data
-    var html = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'mocks', `${term}.html`), { encoding: 'utf8' })
+    var html = fs.readFileSync(path.join(__dirname, '..', '..', 'tests', 'mocks', `${term}.html`), { encoding: 'utf8' })
     return extractResult(html)
   }
 }
@@ -246,7 +246,7 @@ export function getEntryDetails (identifier, mocked = false) {
       })
   } else {
     // reads a prepared html file and extracts the data
-    let html = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'mocks', `${identifier}.html`), { encoding: 'utf8' })
+    let html = fs.readFileSync(path.join(__dirname, '..', '..', 'tests', 'mocks', `${identifier}.html`), { encoding: 'utf8' })
     let results = extractEntryDetails(html)
     results.identifier = identifier
     return results

@@ -6,6 +6,9 @@ describe('LinkButtonIcon.vue', () => {
     const wrapper = shallowMount(LinkButtonIcon, {
       propsData: {
         identifier: 'foo'
+      },
+      stubs: {
+        LinkIcon: true
       }
     })
 

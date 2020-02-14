@@ -41,7 +41,6 @@
 <script>
 import BookmarkButtonIcon from './icons/BookmarkButtonIcon.vue'
 import BackArrowIcon from '../assets/back-arrow.svg'
-import MediumIcon from './icons/MediumIcon.vue'
 import LoadingCircle from './icons/LoadingCircle.vue'
 import LinkButtonIcon from './icons/LinkButtonIcon.vue'
 import { mapState } from 'vuex'
@@ -52,8 +51,7 @@ export default {
     BookmarkButtonIcon,
     BackArrowIcon,
     LoadingCircle,
-    LinkButtonIcon,
-    MediumIcon
+    LinkButtonIcon
   },
   computed: {
     ...mapState({

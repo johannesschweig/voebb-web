@@ -25,6 +25,7 @@
                 <span class='placeholder'>Last updated:</span>
                 <span class='placeholder'> {{ lastUpdated }}</span>
                 <button @click='exportBookmarks'>Export bookmarks</button>
+                <!-- <a href="data:application/octet-stream;charset=utf-16le;base64,Ym9va21hcmtzIGFyZSBncmVhdCB7fQ==" download='bookmarks-export.txt'>text file</a> -->
             </div>
         </div>
         <LoadingCircle

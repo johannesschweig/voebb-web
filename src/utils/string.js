@@ -34,7 +34,7 @@ export function sanitizeDetail (key, value) {
     // remove dashes from isbn
     case 'ISBN': return value.replace(/-/g, '')
     // remove everything after special character
-    case 'Titel':
+    case 'Titel': {
       // remove numbers in brackets in the middle of the string, e.g. foo [412] bar
       value = value.replace(/ \[\d+\]/, '')
       let specialChars = [';', '[', '(']
@@ -51,6 +51,7 @@ export function sanitizeDetail (key, value) {
       } else {
         return value.slice(0, Math.min(...stop))
       }
+    }
     default: return value
   }
 }

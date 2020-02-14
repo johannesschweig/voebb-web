@@ -1,6 +1,6 @@
-import getters from '../../src/renderer/store/getters'
+import getters from '@/store/getters'
 import { bookmarksSample } from './utils'
-import { allLibraries, DONE, MOST_RELEVANT, NEWEST, TITLE_A_Z, TITLE_Z_A, AVAILABLE, ALL } from '../../src/renderer/utils/constants'
+import { allLibraries, DONE, MOST_RELEVANT, NEWEST, TITLE_A_Z, TITLE_Z_A, AVAILABLE, ALL } from '@/utils/constants'
 
 describe('getters', () => {
   it('returns list with bookmarks identifiers', () => {

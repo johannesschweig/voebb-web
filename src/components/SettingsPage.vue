@@ -1,13 +1,14 @@
 <template>
     <div class='container'>
         <div class='text'>Select your preferred libraries:</div>
-        <template v-for='lib in allLibraries'>
+        <template v-for='(lib, index) in allLibraries'>
             <input type='checkbox'
+                :key='index'
                 :value='lib'
                 v-model='libs'
                 :class="{'checked': libs.indexOf(lib) != -1}"/>
             {{ getShortLibrary(lib) }}
-            <br />
+            <br :key='index+1000'/>
         </template>
     </div>
 </template>

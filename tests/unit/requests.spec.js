@@ -9,9 +9,9 @@ describe('requests.js', () => {
   it('retrieves details data for entry', () => {
     let res = getEntryDetails('AK34211530', true)
 
-    expect(res.hasOwnProperty('details')).toBeTruthy()
-    expect(res.hasOwnProperty('identifier')).toBeTruthy()
-    expect(res.hasOwnProperty('copies')).toBeTruthy()
+    expect(Object.prototype.hasOwnProperty.call(res, 'details')).toBeTruthy()
+    expect(Object.prototype.hasOwnProperty.call(res, 'identifier')).toBeTruthy()
+    expect(Object.prototype.hasOwnProperty.call(res, 'copies')).toBeTruthy()
     expect(res.details['Titel']).toBeTruthy()
     expect(res.details['Verfasser']).toBeTruthy()
   })
@@ -24,7 +24,7 @@ describe('requests.js', () => {
     // search results have correct format
     res.forEach(e => {
       props.forEach(p => {
-        expect(e.hasOwnProperty(p)).toBeTruthy()
+        expect(Object.prototype.hasOwnProperty.call(e, p)).toBeTruthy()
       })
     })
   })
@@ -37,7 +37,7 @@ describe('requests.js', () => {
   })
 
   it('returns correct number of pages', () => {
-    let html = fs.readFileSync(path.join(__dirname, '..', '..', 'mocks', 'SearchResultsPageRegular.html'), { encoding: 'utf8' })
+    let html = fs.readFileSync(path.join(__dirname, '..', 'mocks', 'SearchResultsPageRegular.html'), { encoding: 'utf8' })
     let html2 = '<div id="R06">unau, Treffer: 89 im Bibliothe</div>'
     let html3 = '<div id="R06">unau, Treffer: 13289 im Bibliothe</div>'
     let html4 = '<div id="R06">unau, Treffer: 66 im Bibliothe</div>'

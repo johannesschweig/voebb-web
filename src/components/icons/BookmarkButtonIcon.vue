@@ -6,7 +6,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import BookmarkIcon from '../../assets/bookmark.svg'
+import BookmarkIcon from '@/assets/bookmark.svg'
 
 export default {
   components: {

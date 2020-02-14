@@ -10,7 +10,7 @@ export function exportBookmarksFile (data) {
   data.forEach(bookmark => {
     for (var key in bookmark.details) {
       // only whitelisted details or short details allowed
-      if (bookmark.details.hasOwnProperty(key) && whitelist.indexOf(key) !== -1) {
+      if (Object.prototype.hasOwnProperty.call(bookmark.details, key) && whitelist.indexOf(key) !== -1) {
         output += key + ': ' + bookmark.details[key] + '\n'
       }
     }

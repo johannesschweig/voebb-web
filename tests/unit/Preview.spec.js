@@ -5,12 +5,17 @@ import { LOADING } from '@/utils/constants'
 
 const msg = 'foo'
 const title = 'title'
+const stubs = {
+  'router-link': true,
+  'router-view': true,
+  BackArrowIcon: true
+}
 
 describe('Preview.vue', () => {
   it('renders', () => {
     const wrapper = shallowMount(Preview, {
       // FIXME: stub for router view is not available
-      stubs: ['router-link', 'router-view'],
+      stubs,
       computed: {
         data: () => ({
           details: {
@@ -44,7 +49,7 @@ describe('Preview.vue', () => {
 
   it('does not display navigation if e resource', () => {
     const wrapper = shallowMount(Preview, {
-      stubs: ['router-link', 'router-view'],
+      stubs,
       computed: {
         data: () => ({
           details: { Medienart: 'E-' },

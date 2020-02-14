@@ -2,7 +2,7 @@ var rp = require('request-promise-native')
 
 // gets user data from storage
 export const getUserData = (user, file, accessToken) => {
-  return new Promise((resolve, _reject) => {
+  return new Promise(resolve  => {
     if (user) {
       rp({
         'method': 'POST',
@@ -32,7 +32,7 @@ export function setUserData (user, file, data, accessToken) {
       'body': JSON.stringify(data)
     })
   } else {
-    return new Promise((resolve, _reject) => {
+    return new Promise(resolve => {
       // error handled in actions
       resolve()
     })

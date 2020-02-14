@@ -5,7 +5,8 @@
             class='availability'>
             <tbody>
                 <tr
-                    v-for='instance in getPreferredLibs()' 
+                    v-for='(instance, index) in getPreferredLibs()' 
+                    :key='index'
                     :class='{"not-available": instance.availability.message != "available" }' >
                     <td>
                         <LibraryIcon />
