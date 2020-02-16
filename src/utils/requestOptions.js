@@ -1,4 +1,4 @@
-const proxy = 'https://cors-anywhere.herokuapp.com/'
+const proxy = 'https://serene-citadel-09439.herokuapp.com/'
 // request options for landing page
 export const landingPageOptions = {
   'method': 'GET',
