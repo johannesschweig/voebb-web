@@ -5,12 +5,14 @@
 </template>
 
 <script>
+import AvatarIcon from '../assets/avatar.svg'
 import BookmarkIcon from '../assets/bookmark.svg'
 import SearchIcon from '../assets/search.svg'
 import SettingsIcon from '../assets/settings.svg'
 
 export default {
   components: {
+    AvatarIcon,
     BookmarkIcon,
     SearchIcon,
     SettingsIcon

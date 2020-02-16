@@ -1,12 +1,3 @@
-import accessToken from './accessToken'
-// starts the website and loads empty user settings
-export function startClean () {
-  return cy.visit('/', {
-    onBeforeLoad(win) {
-      cy.stub(win, 'prompt').returns('0' + accessToken)
-    }
-  })
-}
 export const books = [
   {
     identifier: 'AK12009789',

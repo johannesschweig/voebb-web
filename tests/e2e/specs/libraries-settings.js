@@ -1,4 +1,3 @@
-import { startClean } from '../support/utils'
 import accessToken from '../support/accessToken'
 import { getUserData, setUserData } from '../../../src/utils/userStorage'
 
@@ -16,7 +15,7 @@ describe('LibrariesSettings', function () {
   })
 
   it('removing libraries is possible', function () {
-    startClean()
+    cy.startClean()
     cy.wait(1000)
     // libraries stored?
     // cy.wrap(null).then(() => {

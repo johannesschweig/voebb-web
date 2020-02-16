@@ -1,7 +1,7 @@
 import { search, getEntryDetails } from '../utils/requests'
 import { getCurrentDateString, addAvailability } from '../utils/string'
 import { getUserData, setUserData } from '../utils/userStorage'
-import { INITIAL, LOADING, TOO_MANY_HITS, NO_HITS, DONE, SEARCH, BOOKMARKS, PREVIEW, ALL } from '../utils/constants'
+import { INITIAL, LOADING, NO_HITS, DONE, SEARCH, BOOKMARKS, PREVIEW, ALL, FAILED } from '../utils/constants'
 import { getLoadingObject, CustomError } from '../utils/utils'
 
 // actions
@@ -9,7 +9,7 @@ export default {
   // read user data (bookmarks, preferred libraries)
   readUserData ({ commit, state, getters }) {
     // read libraries
-    getUserData(state.user, 'libraries', state.accessToken).then(data => {
+    getUserData(state.login.user, 'libraries', state.login.accessToken).then(data => {
       if (Object.keys(data).length === 0) {
         throw new Error('handled')
       }
@@ -19,7 +19,7 @@ export default {
       console.log('Not logged in. Libraries not available')
     })
     // read bookmarks
-    getUserData(state.user, 'bookmarks', state.accessToken).then(data => {
+    getUserData(state.login.user, 'bookmarks', state.login.accessToken).then(data => {
       commit('setLoading', getLoadingObject(BOOKMARKS, LOADING, 'Fetching bookmarks'))
       // no bookmarks
       if (Object.keys(data).length === 0) {
@@ -77,7 +77,7 @@ export default {
         .then(res => {
           let bookmarks = getters.bookmarksList.concat([payload.identifier])
           // update user storage
-          setUserData(state.user, 'bookmarks', bookmarks, state.accessToken)
+          if (state.login.user) setUserData(state.login.user, 'bookmarks', bookmarks, state.login.accessToken)
           // get availability
           let results = addAvailability([res], getters.getPreferredLibraries)[0]
           commit('addBookmark', results)
@@ -119,8 +119,6 @@ export default {
         done.data.status = res
         if (res === NO_HITS) { // no hits
           done.data.msg = `Sorry! We can't find anything for "${term}"`
-        } else if (res === TOO_MANY_HITS) { // too many hits
-          done.data.msg = `There were too many hits for "${term}". Try adjusting your search.`
         }
       } else { // all fine
         done.data.status = DONE
@@ -167,14 +165,14 @@ export default {
       commit('setLoading', getLoadingObject(BOOKMARKS, INITIAL, 'You have not added any bookmarks yet.'))
     }
     // update user storage
-    setUserData(state.user, 'bookmarks', bookmarks, state.accessToken)
+    if (state.login.user) setUserData(state.login.user, 'bookmarks', bookmarks, state.login.accessToken)
     commit('removeBookmark', identifier)
     console.log('Removed bookmark', identifier)
   },
   // updates the store and user settings for preferred libraries
   setLibraries ({ commit, state }, libraries) {
     console.log('Updating libraries', libraries.length, 'entries')
-    setUserData(state.user, 'libraries', libraries, state.accessToken)
+    if (state.login.user) setUserData(state.login.user, 'libraries', libraries, state.login.accessToken)
     commit('setLibraries', libraries)
   },
   // sorts the sorting criterion for a list of results
@@ -187,9 +185,27 @@ export default {
   setFilter ({ commit }, filter) {
     commit('setFilter', filter)
   },
-  setToken ({ commit }, token) {
-    commit('setAccessToken', token.slice(1))
-    commit('setUser', token[0])
+  // try login and try
+  login({ commit, dispatch }, token) {
+    let payload = {
+      status: DONE,
+      user: token[0],
+      accessToken: token.slice(1)
+    } 
+    // try to access
+    getUserData(payload.user, 'bookmarks', payload.accessToken)
+    .then(res => {
+      if (res !== FAILED) {
+        commit('setLogin', payload)
+        dispatch('readUserData')
+      } else {
+        console.log('Login failed')
+        commit('setLogin', {
+          status: FAILED,
+          user: '',
+          accessToken: ''
+        })
+      }
+    })
   }
-
 }

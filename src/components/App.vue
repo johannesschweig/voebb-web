@@ -20,11 +20,7 @@ export default {
     'currentPage': state => state.navigation.currentPage
   }),
   created () {
-    let token = window.prompt('Enter your code:')
-    if (token) {
-      this.$store.dispatch('setToken', token)
-      this.$store.dispatch('readUserData')
-    }
+    // this.$store.dispatch('login', 't')
     // benchmark()
     // read in bookmarks from file
     // this.$store.dispatch('fakeReadUserData')
@@ -75,7 +71,7 @@ h1 {
 #app {
     font-family: Lato, sans-serif;
     height: 100vh;
-    width: 100vw;
+    width: 99vw;
 }
 
 #app > div:nth-child(2),

@@ -1,5 +1,5 @@
 import { NEWEST, TITLE_A_Z, TITLE_Z_A } from '../../../src/utils/constants'
-import { books, startClean } from '../support/utils'
+import { books } from '../support/utils'
 import accessToken from '../support/accessToken'
 import { getUserData, setUserData } from '../../../src/utils/userStorage'
 
@@ -16,7 +16,7 @@ describe('Bookmarks', function () {
   })
 
   it('renders loading indicator', function () {
-    startClean()
+    cy.startClean()
     cy.wait(1000)
     // switch to bookmarks
     cy.get('a[label="Bookmarks"]').click()

@@ -4,10 +4,11 @@ import BookmarksPage from './components/BookmarksPage.vue'
 import Copies from './components/Copies.vue'
 import Details from './components/Details.vue'
 import Preview from './components/Preview.vue'
+import LoginPage from './components/LoginPage.vue'
 import SearchPage from './components/SearchPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
 import Wrapper from './components/Wrapper.vue'
-import { PAGE, SETTINGS_PAGE, PREVIEW, SEARCH_WRAPPER, BOOKMARKS_WRAPPER, DETAILS, COPIES } from './utils/constants'
+import { PAGE, LOGIN_PAGE, SETTINGS_PAGE, PREVIEW, SEARCH_WRAPPER, BOOKMARKS_WRAPPER, DETAILS, COPIES } from './utils/constants'
 
 Vue.use(Router)
 
@@ -68,6 +69,10 @@ export default new Router({
     {
       path: '/' + SETTINGS_PAGE,
       component: SettingsPage
+    },
+    {
+      path: '/' + LOGIN_PAGE,
+      component: LoginPage
     },
     {
       path: '/',

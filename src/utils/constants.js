@@ -3,16 +3,17 @@ export const PAGE = 'Page'
 export const SEARCH_WRAPPER = 'SearchWrapper'
 export const BOOKMARKS_WRAPPER = 'BookmarksWrapper'
 export const SETTINGS_PAGE = 'SettingsPage'
+export const LOGIN_PAGE = 'LoginPage'
 export const PREVIEW = 'Preview'
 export const DETAILS = 'Details'
 export const COPIES = 'Copies'
 
-// states for loading data
+// states for loading data, login
 export const INITIAL = 'initial'
 export const LOADING = 'loading'
-export const TOO_MANY_HITS = 'tooManyHits'
 export const NO_HITS = 'noHits'
 export const DONE = 'done'
+export const FAILED = 'failed'
 
 // pages
 export const SEARCH = 'Search'

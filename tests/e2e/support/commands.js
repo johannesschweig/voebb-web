@@ -1,3 +1,4 @@
+import accessToken from './accessToken'
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +24,10 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add("startClean", () => {
+    cy.visit('/')
+    // login
+    cy.get('a[label="Login"]').click()
+    cy.get('input').type(`0${accessToken}{enter}`)
+    cy.get('p.success')
+})

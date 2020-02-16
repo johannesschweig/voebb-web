@@ -10,6 +10,10 @@
             icon='BookmarkIcon' />
         <div></div>
         <NavigationItem
+            wrapper='LoginPage'
+            label='Login'
+            icon='AvatarIcon' />
+        <NavigationItem
             wrapper='SettingsPage'
             label='Settings'
             icon='SettingsIcon' />

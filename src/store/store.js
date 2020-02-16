@@ -45,10 +45,11 @@ const state = {
   },
   // list of preferred libraries
   libraries: [],
-  // accessToken for dropbox
-  accessToken: '',
-  // current user
-  user: ''
+  login: {
+    status: INITIAL,
+    accessToken: '', // accessToken for dropbox
+    user: '' // current user
+  }
 }
 
 export default new Vuex.Store({

@@ -1,5 +1,4 @@
 import { MOST_RELEVANT, NEWEST, TITLE_A_Z, TITLE_Z_A } from '../../../src/utils/constants'
-import { startClean } from '../support/utils'
 import { getUserData, setUserData } from '../../../src/utils/userStorage'
 import accessToken from '../support/accessToken'
 
@@ -28,7 +27,9 @@ describe('Search', function () {
   })
 
   it('returns search results', function () {
-    startClean()    
+    cy.startClean()    
+    // go to search
+    cy.get('a[label="Search"]').click()
     cy.get('.inputfield > input').type('sams taschenbier{enter}')
     // check loading placeholder
     cy.get('.sk-fading-circle')

@@ -1,20 +1,14 @@
-import { landingPageOptions, resultsPageOptions, singleResultPageOptions, resultPageOptions, nextPageOptions } from './requestOptions'
-import { detailsBlacklist, TOO_MANY_HITS, NO_HITS } from './constants'
-import { extractYear, getAvailability, checkEndOfSession, checkPagesVsResults } from './string'
+import { landingPageOptions, searchPageOptions, singleSearchPageOptions, resultPageOptions, nextPageOptions } from './requestOptions'
+import { detailsBlacklist, NO_HITS } from './constants'
+import { getAvailability, checkEndOfSession, checkPagesVsResults, getSession, getService } from './string'
 var rp = require('request-promise-native')
 const $ = require('cheerio')
 var fs = require('fs')
 var path = require('path')
 
 var session
+var service
 var searchTerm
-
-// retrieves session from html
-function getSession (html) {
-  let start = html.indexOf('jsessionid=') + 'jsessionid='.length
-  let end = html.indexOf('?', start)
-  return html.substr(start, end - start)
-}
 
 // returns number of pages from search results page
 // each page holds 22 entries
@@ -77,62 +71,36 @@ export function search (term, mocked = false) {
       .then(html => {
         // retrieve session from landing page
         session = getSession(html)
-        console.log('Session', session)
+        service = getService(html)
+        console.log('Session/service', session, service)
         // open search results page with search term
-        return rp(resultsPageOptions(session, searchTerm))
+        return rp(searchPageOptions(session, service, searchTerm))
       }).then(async (html) => {
-        checkEndOfSession(html, 'resultsPageOptions')
-        // check for no hits or too many hits
-        let rzero = $('#R01', html)
-        if (rzero.length !== 0) {
-          // no hits
-          if (rzero.html().includes('Ihre Suche im Verbund erzielte keinen Treffer')) {
-            console.log('No hits for', term)
-            return NO_HITS
-          } else if (rzero.html().includes('Zuviele Treffer')) {
-            console.log('Too many hits for', term)
-            return TOO_MANY_HITS
-          }
+        checkEndOfSession(html, 'searchPageOptions')
+        // check for no hits
+        if (html.includes('Ihre Suche in allen Suchbereichen war erfolglos. Bitte verändern Sie Ihre Suchanfrage')) {
+          console.log('No hits for', term)
+          return NO_HITS
         }
-        // redirected to entry details page
-        if ($('.rList > li', html).length === 0 && $('.gi > tbody > tr', html).length > 0) {
-          let results = extractEntryDetails(html)
-          // extract identifier
-          let id = $('.gi tr:nth-of-type(1) td a', html).attr('href')
-          id = id.substring(id.lastIndexOf('=') + 2)
-          console.log('Redirected to entry details page of', results.details['Titel'])
-          // parse year
-          let year = results.details['Veröffentlichung']
-          year = extractYear(year)
-
-          return [
-            {
-              'title': results.details['Titel'],
-              'name': results.details['Verfasser'],
-              'medium': results.details['Medienart'],
-              'year': year,
-              'img': null,
-              'identifier': id
-            }
-          ]
+        
+        // extract results from html
+        let pages = getNumberOfPages(html)
+        // extract results from subsequent pages
+        // there is only one page
+        let results = extractResult(html)
+        if (pages === 1) {
+          console.log('ResultsPage successfull:', results.length, 'results')
+          return Promise.resolve(results)
         } else {
-          // extract results from html
-          let pages = getNumberOfPages(html)
-          // extract results from subsequent pages
-          // there is only one page
-          let results = extractResult(html)
-          if (pages === 1) {
-            console.log('ResultsPage successfull:', results.length, 'results')
-            return Promise.resolve(results)
-          } else {
-            for (let i = 1; i < pages; i++) {
-              let html = await rp(nextPageOptions(session, i))
-              results = results.concat(extractResult(html))
-            }
-            checkPagesVsResults(pages, results.length)
-            console.log('ResultsPage successfull:', results.length, 'results')
-            return results
+          service = getService(html)
+          console.log('Service', service)
+          for (let i = 1; i < pages; i++) {
+            let html = await rp(nextPageOptions(session, service, i))
+            results = results.concat(extractResult(html))
           }
+          checkPagesVsResults(pages, results.length)
+          console.log('ResultsPage successfull:', results.length, 'results')
+          return results
         }
       })
       .catch((err) => {
@@ -232,12 +200,13 @@ function extractEntryDetails (html) {
 // mocked: if the search should return fake/mocked result
 export function getEntryDetails (identifier, mocked = false) {
   if (!mocked) {
-    return rp(singleResultPageOptions(identifier))
+    return rp(singleSearchPageOptions(identifier))
       .then(html => {
         // retrieve session from result page
         session = getSession(html)
-        console.log('Session', session)
-        return rp(resultPageOptions(session))
+        service = getService(html)
+        console.log('Session/service', session, service)
+        return rp(resultPageOptions(session, service))
       }).then(html => {
         checkEndOfSession(html, 'resultPageOptions')
         let results = extractEntryDetails(html)

@@ -1,4 +1,6 @@
+import { getUrl } from './string'
 const proxy = 'https://serene-citadel-09439.herokuapp.com/'
+
 // request options for landing page
 export const landingPageOptions = {
   'method': 'GET',
@@ -11,10 +13,10 @@ export const landingPageOptions = {
 }
 
 // request options for results page
-export function resultsPageOptions (session, searchTerm) {
+export function searchPageOptions (session, service, searchTerm) {
   return {
     'method': 'POST',
-    'url': proxy + 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
+    'url': getUrl(proxy, session),
     'headers': {
       'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0',
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -25,7 +27,7 @@ export function resultsPageOptions (session, searchTerm) {
       'Upgrade-Insecure-Requests': '1'
     },
     'form': {
-      'service': 'direct/1/POOLVX00@@@@@@@@_4B031500_383B2A80/$Form.form',
+      'service': service,
       'sp': 'S0',
       'Form0': 'focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Autosuggest,select,$FormConditional,textButton',
       'focus': 'THEMA2_1',
@@ -49,10 +51,10 @@ export function resultsPageOptions (session, searchTerm) {
 
 // request options for the next results page
 // page: number of the page starting with 2 for the second page
-export function nextPageOptions (session, page) {
+export function nextPageOptions (session, service, page) {
   return {
     'method': 'POST',
-    'url': proxy + 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
+    'url': getUrl(proxy, session),
     'headers': {
       'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0',
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -63,7 +65,7 @@ export function nextPageOptions (session, page) {
       'Upgrade-Insecure-Requests': '1'
     },
     'form': {
-      'service': 'direct/1/POOLVX00@@@@@@@@_4B033700_00000000/$Form.form',
+      'service': service,
       'sp': 'S0',
       'Form0': 'focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Autosuggest,select,$FormConditional,textButton,$LinkSubmit$0,$LinkSubmit,$LinkSubmit$1,$Toolbar,cellCheck,cellCheck$0,cellCheck$1,cellCheck$2,cellCheck$3,cellCheck$4,cellCheck$5,cellCheck$6,cellCheck$7,cellCheck$8,cellCheck$9,cellCheck$10,cellCheck$11,cellCheck$12,cellCheck$13,cellCheck$14,cellCheck$15,cellCheck$16,cellCheck$17,cellCheck$18,cellCheck$19,cellCheck$20,$FormConditional$0,textButton$0,$FormConditional$1,textButton$1,$FormConditional$2,textButton$2,$FormConditional$3,textButton$3,$FormConditional$4,textButton$4,$FormConditional$5,textButton$5,$FormConditional$6,textButton$6,$FormConditional$7,textButton$7,textButton$8,textButton$9,textButton$10,textButton$11,textButton$12,textButton$13,textButton$14,$Toolbar$0',
       'focus': '',
@@ -95,7 +97,7 @@ export function nextPageOptions (session, page) {
 }
 
 // page with single result when calling 'Zitierlink'
-export function singleResultPageOptions (identifier) {
+export function singleSearchPageOptions (identifier) {
   return {
     'method': 'GET',
     'url': proxy + 'https://voebb.de/aDISWeb/app?service=direct/0/Home/$DirectLink&sp=SPROD00&sp=S' + identifier,
@@ -117,10 +119,10 @@ export function singleResultPageOptions (identifier) {
 }
 
 // page with result
-export function resultPageOptions (session) {
+export function resultPageOptions (session, service) {
   return {
     'method': 'POST',
-    'url': proxy + 'https://voebb.de/aDISWeb/app;jsessionid=' + session,
+    'url': getUrl(proxy, session),
     'headers': {
       'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0',
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -131,7 +133,7 @@ export function resultPageOptions (session) {
       'Upgrade-Insecure-Requests': '1'
     },
     form: {
-      'service': 'direct/1/POOLVX00@@@@@@@@_4B033700_00000000/$Form.form',
+      'service': service,
       'sp': 'S0',
       'Form0': 'focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Autosuggest,select,$FormConditional,textButton,$LinkSubmit$0,$LinkSubmit,$LinkSubmit$1,$Toolbar,cellCheck,$FormConditional$0,textButton$0,$FormConditional$1,textButton$1,$FormConditional$2,textButton$2,$FormConditional$3,textButton$3,$FormConditional$4,textButton$4,$FormConditional$5,textButton$5,$FormConditional$6,textButton$6,$FormConditional$7,textButton$7,textButton$8,textButton$9,textButton$10,textButton$11,textButton$12,textButton$13,textButton$14,$Toolbar$0',
       'focus': '',

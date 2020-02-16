@@ -17,7 +17,7 @@ describe('SettingsPage.vue', () => {
     })
 
     // FIXME input fields have no ending tags -> concatenating library names together
-    let regex = new RegExp('^Select your preferred libraries:.*' + allLibraries.map(lib => shortenLibraryName(lib)).join('.*') + '$', 's')
+    let regex = new RegExp('^Settings.*Select your preferred libraries:.*' + allLibraries.map(lib => shortenLibraryName(lib)).join('.*') + '$', 's')
     expect(wrapper.find(SettingsPage).text()).toMatch(regex)
     // FIXME add test to check checked status (computed property getter makes this hard)
     //   preferred.forEach((lib, index) => {

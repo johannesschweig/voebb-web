@@ -180,7 +180,7 @@ export function getMediaFilter (media) {
 
 // debug: check if session ended and prints a debug message
 export function checkEndOfSession (html, place) {
-  if (html.indexOf('Ende der Sitzung') !== -1) {
+  if (html.indexOf('Ende der Sitzung') !== -1 || html.indexOf('Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten.') !== -1) {
     console.log('Session ended (check request "' + place + '")')
   }
 }
@@ -190,4 +190,21 @@ export function checkPagesVsResults (pages, results) {
   if (results < (pages - 1) * 22 + 1) {
     console.log('Number of results (' + results + ') does not fit the number of pages (' + pages + ')')
   }
+}
+
+// constructs a url
+export function getUrl (proxy, session) {
+  return `${proxy}https://voebb.de/aDISWeb/app;jsessionid=${session}.node1`
+}
+
+// retrieves session from html
+export function getSession (html) {
+  // session: 32 character string with uppercase letters and digits
+  return html.match(/jsessionid=[A-Z\d]{32}/)[0].slice(11)
+}
+
+// retrieves service from html
+export function getService (html) {
+  // service: value="direct/1/POOLVX00p-varuba_4B031500_38AC91D3/$Form.form"
+  return html.match(/direct\/1\/POOLVX00........_[A-Z\d]{8}_[A-Z\d]{8}\/\$Form.form/)[0]
 }

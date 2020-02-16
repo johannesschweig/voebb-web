@@ -1,4 +1,5 @@
 import { getEntryDetails, search, getNumberOfPages } from '@/utils/requests'
+import { getSession } from '@/utils/string'
 var fs = require('fs')
 var path = require('path')
 
@@ -46,5 +47,14 @@ describe('requests.js', () => {
     expect(getNumberOfPages(html2)).toEqual(5)
     expect(getNumberOfPages(html3)).toEqual(605)
     expect(getNumberOfPages(html4)).toEqual(3)
+  })
+
+  it('extracts session from html', () => {
+    // session: 32 character string with uppercase letters and digits
+    let session = '5DE6BE2E823D61961B8400645D9B1261'
+    let html = `= "/aDISWeb/app;jsessionid=${session}.node1?service`
+    let html2 = `= "/aDISWeb/app;jsessionid=${session}?service`
+    expect(getSession(html)).toEqual(session)
+    expect(getSession(html2)).toEqual(session)
   })
 })

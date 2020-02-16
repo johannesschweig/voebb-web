@@ -79,12 +79,10 @@ export default {
   setFilter (state, filter) {
     state.search.filter = filter
   },
-  // set User
-  setUser (state, user) {
-    state.user = user
-  },
-  // set access token
-  setAccessToken (state, accessToken) {
-    state.accessToken = accessToken
+  // set login state, user, access token
+  setLogin (state, payload) {
+    state.login.status = payload.status
+    state.login.user = payload.user
+    state.login.accessToken = payload.accessToken
   }
 }

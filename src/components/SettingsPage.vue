@@ -1,5 +1,6 @@
 <template>
     <div class='container'>
+        <h1>Settings</h1>
         <div class='text'>Select your preferred libraries:</div>
         <template v-for='(lib, index) in allLibraries'>
             <input type='checkbox'
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { allLibraries } from '../utils/constants.js'
 import { shortenLibraryName } from '../utils/string.js'
 
@@ -33,7 +34,10 @@ export default {
       get () {
         return this.$store.state.libraries
       }
-    }
+    },
+    ...mapState({
+      user: state => state.user
+    })
   },
   methods: {
     // get short name for library
@@ -52,6 +56,7 @@ export default {
     font-size: 16px;
     padding-bottom: 12px;
 }
+
 div {
     font-size: 12px;
 }
