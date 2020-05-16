@@ -119,7 +119,7 @@ h1 {
 
 .grid {
   display: grid;
-  grid-template-columns: 100px 1fr 200px 150px;
+  grid-template-columns: 200px 1fr 200px 150px;
   align-items: center;
 }
 

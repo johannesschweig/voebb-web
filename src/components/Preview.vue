@@ -92,6 +92,25 @@ export default {
     grid-column-gap: 12px;
 }
 
+
+@media only screen and (min-width: 1200px) {
+    .grid div:nth-child(1) {
+        grid-template-columns: 32px 1fr 6fr 32px 32px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .grid div:nth-child(1) {
+        grid-template-columns: 32px 1fr 8fr 32px 32px;
+    }
+}
+
+@media only screen and (min-width: 1900px) {
+    .grid div:nth-child(1) {
+        grid-template-columns: 32px 1fr 10fr 32px 32px;
+    }
+}
+
 .grid div.no-image:nth-child(1) {
     grid-template-columns: 32px 1fr 32px 32px;
 }

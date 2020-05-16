@@ -4,7 +4,6 @@
 ## Bugs
 - document query selector null in l45 Wrapper.vue
 ## Login
-- Error handling and feedback for wrong login
 - landing page to explain voebb-web and why to login
 - setup process to generate account?
 - auto-login with saved cookie?
@@ -13,7 +12,7 @@
 - make app mobile usable
 ## UI Improvements
 - change website title and favicon
-- add indication to bookmarks how many bookmarks are available
+- add indication to bookmarks nav icon how many bookmarks are available
 - empty image frame look ugly
 ## Logging
 - add logging how long a request took
@@ -33,14 +32,17 @@
   - voebb-web: 3s session, 3s search one page, 12s search 5 pages (1.2s per additional page)
   - make search return results one request by one?
 - add search as query to url (...?q="koppetsch")
+- more covers with different API (google books or amazon)
 ## Error handling
 ## Save state
 - save all state constantly (search, bookmarks, etc)
+
 # Done
 ## 0.2.0 (w10.4)
 - fix change in requests (w02,30)
 - nicer login (p2 w02,80)
   - check if token is correct
+  - Error handling and feedback for wrong login
 - setup own heroku cors dyno (w0.16)
 - make e2e tests run (p4-6, 60%, w4)
 - make unit tests run (p2-4, 80%, w0.8)
