@@ -4,7 +4,7 @@
         :class='["card", wrapper.toLowerCase(), { "not-available": wrapper === "Bookmarks" && row.availability.message !== "available" }]'
         tag='div'
         @click.left.native='fetchDetails(row.identifier)' >
-        <img :src='row.img ? row.img : ""' />
+        <img v-if='getImg(row.img)' :src='getImg(row.img)' />
         <div class='info'>
             <div class='title'>
                 <MediumIcon :medium='row.medium'/>
@@ -54,6 +54,13 @@ export default {
     // removes unncessary infos from strings
     sanitizeString (key, value) {
       return sanitizeDetail(key, value)
+    },
+    getImg(img) {
+      if (img === '/aDISWeb_vob/images/icons/cover-bg.svg') {
+        return ''
+      } else {
+        return img
+      }
     }
   }
 }

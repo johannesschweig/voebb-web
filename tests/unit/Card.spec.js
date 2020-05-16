@@ -38,8 +38,11 @@ describe('Card.vue', () => {
   it('renders for Bookmarks', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
-        row,
-        wrapper: 'Bookmarks'
+        row: {
+          ...row,
+          img
+        },
+        wrapper: 'Bookmarks',
       },
       stubs: {
         RouterLink: RouterLinkStub
@@ -47,7 +50,7 @@ describe('Card.vue', () => {
     })
 
     expect(wrapper.find('.card.bookmarks').exists()).toBeTruthy()
-    expect(wrapper.find('img').attributes('src')).toEqual('')
+    expect(wrapper.find('img').attributes('src')).toEqual(img)
     expect(wrapper.find('.title').text()).toEqual(`${row.title} (${row.medium})`)
     expect(wrapper.find('.subtitle').text()).toMatch(new RegExp(row.name + '\\s*-.*' + row.year))
     expect(wrapper.find('span').text()).toEqual(row.availability.message)
@@ -87,5 +90,39 @@ describe('Card.vue', () => {
     })
 
     expect(wrapper.find('.subtitle').text()).toEqual(row.name)
+  })
+
+  it('hides cover if empty', () => {
+    const wrapper = shallowMount(Card, {
+      propsData: {
+        row: {
+          ...row,
+          img: ''
+        },
+        wrapper: 'Search'
+      },
+      stubs: {
+        RouterLink: RouterLinkStub
+      }
+    })
+
+    expect(wrapper.find('img').exists()).toEqual(false)
+  })
+
+  it('hides cover if placeholder image', () => {
+    const wrapper = shallowMount(Card, {
+      propsData: {
+        row: {
+          ...row,
+          img: '/aDISWeb_vob/images/icons/cover-bg.svg'
+        },
+        wrapper: 'Search'
+      },
+      stubs: {
+        RouterLink: RouterLinkStub
+      }
+    })
+
+    expect(wrapper.find('img').exists()).toEqual(false)
   })
 })

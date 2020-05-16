@@ -12,9 +12,7 @@
 ## Mobile
 - make app mobile usable
 ## UI Improvements
-- change website title and favicon
 - add indication to bookmarks nav icon how many bookmarks are available
-- empty image frame look ugly
 - change card to rows
 - indication of clicked row in search when going back
 ## Logging
@@ -43,7 +41,9 @@
 
 # Done
 ## 0.3.0
-- readding medium icons (p1 w1.25)
+- empty image frame look ugly (p0.5h w0.5)
+- change website title and favicon
+- fixing medium icons (p1 w1.25)
 ## 0.2.0 (w10.4)
 - fix change in requests (w02,30)
 - nicer login (p2 w02,80)
